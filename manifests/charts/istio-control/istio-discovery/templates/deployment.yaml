@@ -60,6 +60,11 @@ spec:
 {{- if .Values.pilot.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.pilot.nodeSelector | indent 8 }}
+
+{{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+{{- end }}
 {{- end }}
       serviceAccountName: istiod{{- if not (eq .Values.revision "") }}-{{ .Values.revision }}{{- end }}
 {{- if .Values.global.priorityClassName }}
